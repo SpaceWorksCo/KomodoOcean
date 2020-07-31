@@ -75,13 +75,13 @@ jobs:
       - name: Build (Linux)
         if: runner.os == 'Linux'
         run: |
-          ./zcutil/build.sh -j$(nproc)
-          zip --junk-paths komodo-linux src/komodod src/komodo-cli src/qt/komodo-qt
-      - name: Upload komodo-linux.zip as artifact
+          ./zcutil/build-linux.sh -j$(nproc)
+          zip --junk-paths komodo-linuxQT src/komodod src/komodo-cli src/qt/komodo-qt
+      - name: Upload komodoQT-linux.zip as artifact
         uses: actions/upload-artifact@v1
         with:
-          name: komodo-linux
-          path: ./komodo-linux.zip
+          name: komodoQT-linux
+          path: ./komodoQT-linux.zip
 
   osx-build:
     name: OSX Build
@@ -126,6 +126,7 @@ jobs:
           sudo apt-get upgrade -y
           sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool libncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libqrencode-dev libdb++-dev ntp ntpdate nano software-properties-common curl libevent-dev libcurl4-gnutls-dev cmake clang libsodium-dev -y
           sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget libcurl4-gnutls-dev bsdmainutils automake curl cmake mingw-w64
+          sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler -y
           curl https://sh.rustup.rs -sSf | sh -s -- -y
           source $HOME/.cargo/env
           rustup target add x86_64-pc-windows-gnu
@@ -134,30 +135,30 @@ jobs:
       - name: Build (Windows)
         run: |
           ./zcutil/build-win.sh -j$(nproc)
-          zip --junk-paths komodo-win src/komodod.exe src/komodo-cli.exe
-      - name: Upload komodo-win.zip as artifact
+          zip --junk-paths komodoQT-win src/komodod.exe src/komodo-cli.exe src/qt/komodo-qt.exe
+      - name: Upload komodoQT-win.zip as artifact
         uses: actions/upload-artifact@v1
         with:
-          name: komodo-win
-          path: ./komodo-win.zip
+          name: komodoQT-win
+          path: ./komodoQT-win.zip
 
   publish-release:
       name: Publishing CD releases
       runs-on: ubuntu-latest
       needs: [linux-build, osx-build, windows-build]
       steps:
-        - name: Download komodo-linux.zip
+        - name: Download komodoQT-linux.zip
           uses: actions/download-artifact@v1
           with:
-            name: komodo-linux
+            name: komodoQT-linux
         - name: Download komodo-osx.zip
           uses: actions/download-artifact@v1
           with:
             name: komodo-osx
-        - name: Download komodo-win.zip
+        - name: Download komodoQT-win.zip
           uses: actions/download-artifact@v1
           with:
-            name: komodo-win
+            name: komodoQT-win
 
         - name: Extract branch name
           shell: bash
