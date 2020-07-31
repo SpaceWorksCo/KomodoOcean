@@ -1,6 +1,6 @@
 # we are using separate workflow because CI producing test binaries with CPPFLAGS=-DTESTMODE
 
-name: Komodo CD test releases
+name: KomodoQT CD test releases
 
 
 on:
@@ -123,7 +123,7 @@ jobs:
           sudo apt-get update  # prevents repo404 errors on apt-remove below
           sudo apt-get remove php5.6-fpm php7.0-fpm php7.1-fpm php7.2-fpm php7.3-fpm php7.3-common php7.4-fpm
           sudo apt-get update
-          sudo apt-get upgrade -y
+          sudo ACCEPT_EULA=Y apt-get upgrade -y
           sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool libncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libqrencode-dev libdb++-dev ntp ntpdate nano software-properties-common curl libevent-dev libcurl4-gnutls-dev cmake clang libsodium-dev -y
           sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget libcurl4-gnutls-dev bsdmainutils automake curl cmake mingw-w64
           sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler -y
