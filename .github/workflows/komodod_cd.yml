@@ -95,21 +95,23 @@ jobs:
           brew upgrade
           brew tap discoteq/discoteq; brew install flock
           brew install autoconf autogen automake
-          brew install gcc@8
+          brew install gcc@6
           brew install binutils
           brew install protobuf
           brew install coreutils
           brew install wget
           brew install python3
+          brew install berkeley-db4 libtool boost miniupnpc openssl pkg-config python qt libevent qrencode
+          brew install librsvg
       - name: Build (macOS)
         run: |
           ./zcutil/build-mac.sh -j4
-          zip --junk-paths komodo-osx src/komodod src/komodo-cli
+          zip --junk-paths komodo-osxQT src/komodod src/komodo-cli src/qt/komodo-qt
       - name: Upload komodo-osx.zip as artifact
         uses: actions/upload-artifact@v1
         with:
-          name: komodo-osx
-          path: ./komodo-osx.zip
+          name: komodoQT-osx
+          path: ./komodoQT-osx.zip
 
   windows-build:
     name: Windows Build (mingw)
