@@ -90,6 +90,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install deps (macOS)
         run: |
+          brew unlink bazel
           brew update
           brew upgrade
           brew tap discoteq/discoteq; brew install flock
@@ -100,7 +101,6 @@ jobs:
           brew install coreutils
           brew install wget
           brew install python3
-          brew install bazel
       - name: Build (macOS)
         run: |
           ./zcutil/build-mac.sh -j4
