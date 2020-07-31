@@ -100,8 +100,7 @@ jobs:
           brew install coreutils
           brew install wget
           brew install python3
-          brew tap bazelbuild/tap
-          brew extract bazel bazelbuild/tap --version X.X.X
+          brew install bazel
       - name: Build (macOS)
         run: |
           ./zcutil/build-mac.sh -j4
