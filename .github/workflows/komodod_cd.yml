@@ -76,7 +76,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           ./zcutil/build-linux.sh -j$(nproc)
-          zip --junk-paths komodo-linuxQT src/komodod src/komodo-cli src/qt/komodo-qt
+          zip --junk-paths komodoQT-linux src/komodod src/komodo-cli src/qt/komodo-qt
       - name: Upload komodoQT-linux.zip as artifact
         uses: actions/upload-artifact@v1
         with:
