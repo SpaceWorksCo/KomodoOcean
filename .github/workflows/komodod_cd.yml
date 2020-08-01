@@ -1,6 +1,6 @@
 # we are using separate workflow because CI producing test binaries with CPPFLAGS=-DTESTMODE
 
-name: KomodoQT CD test releases
+name: Komodo-QT CD
 
 
 on:
@@ -37,51 +37,18 @@ jobs:
           sudo apt-get remove php5.6-fpm php7.0-fpm php7.1-fpm php7.2-fpm php7.3-fpm php7.3-common php7.4-fpm msodbcsql17 mysql-server*
           sudo apt-get update
           sudo ACCEPT_EULA=Y apt-get upgrade -y
-          sudo apt-get install -q \
-                 build-essential \
-                 pkg-config \
-                 libcurl3-gnutls-dev \
-                 libc6-dev \
-                 libevent-dev \
-                 m4 \
-                 g++-multilib \
-                 autoconf \
-                 libtool \
-                 ncurses-dev \
-                 unzip \
-                 git \
-                 python \
-                 zlib1g-dev \
-                 wget \
-                 bsdmainutils \
-                 automake \
-                 libboost-all-dev \
-                 libssl-dev \
-                 libprotobuf-dev \
-                 protobuf-compiler \
-                 libqt4-dev \
-                 libqrencode-dev \
-                 libdb++-dev \
-                 ntp \
-                 ntpdate \
-                 libcurl4-gnutls-dev \
-                 libqt5gui5 \
-                 libqt5core5a \
-                 libqt5dbus5 \
-                 qttools5-dev \
-                 qttools5-dev-tools \
-                 libprotobuf-dev \
-                 protobuf-compiler -y
+          sudo apt-get install automake autoconf bsdmainutils build-essential clang cmake curl git g++-multilib libboost-all-dev libcurl4-gnutls-dev libc6-dev libdb++-dev libevent-dev libncurses-dev libprotobuf-dev libqrencode-dev libsodium-dev libssl-dev libtool m4 nano ncurses-dev ntp ntpdate pkg-config protobuf-compiler python python-zmq software-properties-common unzip wget zlib1g-dev -y
+          sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools -y
       - name: Build (Linux)
         if: runner.os == 'Linux'
         run: |
           ./zcutil/build-linux.sh -j$(nproc)
-          zip --junk-paths komodoQT-linux src/komodod src/komodo-cli src/qt/komodo-qt
-      - name: Upload komodoQT-linux.zip as artifact
+          zip --junk-paths komodo-qt-linux src/komodod src/komodo-cli src/qt/komodo-qt
+      - name: Upload komodo-qt-linux.zip as artifact
         uses: actions/upload-artifact@v1
         with:
-          name: komodoQT-linux
-          path: ./komodoQT-linux.zip
+          name: komodo-qt-linux
+          path: ./komodo-qt-linux.zip
 
   osx-build:
     name: OSX Build
@@ -106,12 +73,12 @@ jobs:
       - name: Build (macOS)
         run: |
           ./zcutil/build-mac.sh -j4
-          zip --junk-paths komodo-osxQT src/komodod src/komodo-cli src/qt/komodo-qt
-      - name: Upload komodo-osx.zip as artifact
+          zip --junk-paths komodo-qt-osx src/komodod src/komodo-cli src/qt/komodo-qt
+      - name: Upload komodo-qt-osx.zip as artifact
         uses: actions/upload-artifact@v1
         with:
-          name: komodoQT-osx
-          path: ./komodoQT-osx.zip
+          name: komodo-qt-osx
+          path: ./komodo-qt-osx.zip
 
   windows-build:
     name: Windows Build (mingw)
@@ -127,9 +94,8 @@ jobs:
           sudo apt-get remove php5.6-fpm php7.0-fpm php7.1-fpm php7.2-fpm php7.3-fpm php7.3-common php7.4-fpm
           sudo apt-get update
           sudo ACCEPT_EULA=Y apt-get upgrade -y
-          sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool libncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libqrencode-dev libdb++-dev ntp ntpdate nano software-properties-common curl libevent-dev libcurl4-gnutls-dev cmake clang libsodium-dev -y
-          sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget libcurl4-gnutls-dev bsdmainutils automake curl cmake mingw-w64
-          sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler -y
+          sudo apt-get install automake autoconf bsdmainutils build-essential clang cmake curl git g++-multilib libboost-all-dev libcurl4-gnutls-dev libc6-dev libdb++-dev libevent-dev libncurses-dev libprotobuf-dev libqrencode-dev libsodium-dev libssl-dev libtool mingw-w64 m4 nano ncurses-dev ntp ntpdate pkg-config protobuf-compiler python python-zmq software-properties-common unzip wget zlib1g-dev -y
+          sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools -y
           curl https://sh.rustup.rs -sSf | sh -s -- -y
           source $HOME/.cargo/env
           rustup target add x86_64-pc-windows-gnu
@@ -138,30 +104,30 @@ jobs:
       - name: Build (Windows)
         run: |
           ./zcutil/build-win.sh -j$(nproc)
-          zip --junk-paths komodoQT-win src/komodod.exe src/komodo-cli.exe src/qt/komodo-qt.exe
-      - name: Upload komodoQT-win.zip as artifact
+          zip --junk-paths komodo-qt-win src/komodod.exe src/komodo-cli.exe src/qt/komodo-qt.exe
+      - name: Upload komodo-qt-win.zip as artifact
         uses: actions/upload-artifact@v1
         with:
-          name: komodoQT-win
-          path: ./komodoQT-win.zip
+          name: komodo-qt-win
+          path: ./komodo-qt-win.zip
 
   publish-release:
       name: Publishing CD releases
       runs-on: ubuntu-latest
       needs: [linux-build, osx-build, windows-build]
       steps:
-        - name: Download komodoQT-linux.zip
+        - name: Download komodo-qt-linux.zip
           uses: actions/download-artifact@v1
           with:
-            name: komodoQT-linux
-        - name: Download komodo-osx.zip
+            name: komodo-qt-linux
+        - name: Download komodo-qt-osx.zip
           uses: actions/download-artifact@v1
           with:
-            name: komodo-osx
-        - name: Download komodoQT-win.zip
+            name: komodo-qt-osx
+        - name: Download komodo-qt-win.zip
           uses: actions/download-artifact@v1
           with:
-            name: komodoQT-win
+            name: komodo-qt-win
 
         - name: Extract branch name
           shell: bash
