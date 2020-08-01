@@ -31,7 +31,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install deps (Linux)
+      - name: Install dependencies (Linux)
         run: |
           sudo apt-get update  # prevents repo404 errors on apt-remove below
           sudo apt-get remove php5.6-fpm php7.0-fpm php7.1-fpm php7.2-fpm php7.3-fpm php7.3-common php7.4-fpm msodbcsql17 mysql-server*
@@ -44,7 +44,7 @@ jobs:
         run: |
           ./zcutil/build-linux.sh -j$(nproc)
           zip --junk-paths komodo-qt-linux src/komodod src/komodo-cli src/qt/komodo-qt
-      - name: Upload komodo-qt-linux.zip as artifact
+      - name: Upload komodo-qt-linux.zip
         uses: actions/upload-artifact@v1
         with:
           name: komodo-qt-linux
@@ -55,7 +55,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install deps (macOS)
+      - name: Install dependencies (macOS)
         run: |
           brew unlink bazel
           brew update
@@ -74,7 +74,7 @@ jobs:
         run: |
           ./zcutil/build-mac.sh -j4
           zip --junk-paths komodo-qt-osx src/komodod src/komodo-cli src/qt/komodo-qt
-      - name: Upload komodo-qt-osx.zip as artifact
+      - name: Upload komodo-qt-osx.zip
         uses: actions/upload-artifact@v1
         with:
           name: komodo-qt-osx
@@ -86,7 +86,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Install deps (Windows)
+      - name: Install dependencies (Windows)
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
@@ -105,7 +105,7 @@ jobs:
         run: |
           ./zcutil/build-win.sh -j$(nproc)
           zip --junk-paths komodo-qt-win src/komodod.exe src/komodo-cli.exe src/qt/komodo-qt.exe
-      - name: Upload komodo-qt-win.zip as artifact
+      - name: Upload komodo-qt-win.zip
         uses: actions/upload-artifact@v1
         with:
           name: komodo-qt-win
