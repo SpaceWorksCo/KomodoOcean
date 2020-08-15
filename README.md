@@ -1,19 +1,9 @@
-# KomodoOcean (komodo-qt) #
+# SpaceOcean (spacecoin-qt) #
 
-![Downloads](https://img.shields.io/github/downloads/DeckerSU/KomodoOcean/total)
+![Downloads](https://img.shields.io/github/downloads/SpaceWorksCo/SpaceOcean/total)
 
-![](./doc/images/komodo-qt-promo-2020-01.jpg)
+Spacecoin-Qt (SpaceOcean) is a Qt native full node wallet for SPACE ([Spacecoin](https://spaceworks.co/spacecoin)). It's available for three OS platforms - Windows, Linux, MacOS.
 
-Komodo-Qt (KomodoOcean) is a world-first Qt native wallet for KMD ([Komodo](https://komodoplatform.com/)) and smartchains (assetchains). It's available for three OS platforms - Windows, Linux, MacOS.
-
-**NB!** Earlier (till 23.05.2019) we had three branches:
-
-
-- [master](../../tree/master) for Windows.
-- [Linux](../../tree/Linux) for Linux.
-- [MacOS](../../tree/MacOS) for MacOS.
-
-Now we have only one branch [static](../../tree/static) for build static Komodo-Qt binaries from one branch for each OS.
 
 Use the following scripts to build:
 
@@ -21,9 +11,7 @@ Use the following scripts to build:
 - Windows: `build-win.sh` (cross-compilation for Win)
 - MacOS: `build-mac.sh` (native build)
 
-`master` branch **can't** be used anymore to build actual wallet version, but it still can be used as an example of build with MSVC compiler.  To build actual version plz use `static` branch.
-
-Visit [#wallet-ocean-qt](https://discord.gg/U5WWaJR) channel in Komodo Discord for more information.
+Visit [#wallet-ocean-qt](TODO https://discord.gg/U5WWaJR) channel in Spacecoin Discord for more information.
 
 ## How to build? ##
 
@@ -35,8 +23,8 @@ sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoco
 ```
 
 ```shell
-git clone https://github.com/DeckerSU/KomodoOcean --branch static --single-branch
-cd komodo
+git clone https://github.com/SpaceWorksCo/SpaceOcean --branch static-tspace --single-branch
+cd SpaceOcean
 ./zcutil/fetch-params.sh
 # -j8 = using 8 threads for the compilation - replace 8 with number of threads you want to use
 ./zcutil/build-linux.sh -j8
@@ -50,7 +38,7 @@ Ensure you have [brew](https://brew.sh) and Command Line Tools installed.
 # Install brew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 # Install Xcode, opens a pop-up window to install CLT without installing the entire Xcode package
-xcode-select --install 
+xcode-select --install
 # Update brew and install dependencies
 brew update
 brew upgrade
@@ -62,9 +50,9 @@ brew install protobuf
 brew install coreutils
 brew install wget
 # Clone the Komodo repo
-git clone https://github.com/DeckerSU/KomodoOcean --branch static --single-branch
+git clone https://github.com/SpaceWorksCo/SpaceOcean --branch static-tspace --single-branch
 # Change master branch to other branch you wish to compile
-cd komodo
+cd SpaceOcean
 ./zcutil/fetch-params.sh
 # -j8 = using 8 threads for the compilation - replace 8 with number of threads you want to use
 ./zcutil/build-mac.sh -j8
@@ -84,14 +72,16 @@ sudo update-alternatives --config x86_64-w64-mingw32-gcc
 sudo update-alternatives --config x86_64-w64-mingw32-g++
 # (configure to use POSIX variant)
 
-git clone https://github.com/DeckerSU/KomodoOcean --branch static --single-branch
-cd komodo
+git clone https://github.com/SpaceWorksCo/SpaceOcean --branch static-tspace --single-branch
+cd SpaceOcean
 ./zcutil/fetch-params.sh
 # -j8 = using 8 threads for the compilation - replace 8 with number of threads you want to use
 ./zcutil/build-win.sh -j8
 #This can take some time.
 ```
-**komodo is experimental and a work-in-progress.** Use at your own risk.
+
+
+**SpaceOcean is experimental and a work-in-progress.** Use at your own risk.
 
 
 
