@@ -44,7 +44,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           ./zcutil/build-linux.sh -j$(nproc)
-          zip --junk-paths tspace-qt-linux src/komodod src/komodo-cli src/qt/komodo-qt
+          zip --junk-paths tspace-qt-linux src/komodod src/komodo-cli tspace-qt
       - name: Upload tspace-qt-linux.zip
         uses: actions/upload-artifact@v1
         with:
@@ -76,7 +76,7 @@ jobs:
       - name: Build (Windows)
         run: |
           ./zcutil/build-win.sh -j$(nproc)
-          zip --junk-paths tspace-qt-win src/komodod.exe src/komodo-cli.exe src/qt/komodo-qt.exe
+          zip --junk-paths tspace-qt-win src/komodod.exe src/komodo-cli.exe tspace-qt.exe
       - name: Upload tspace-qt-win.zip
         uses: actions/upload-artifact@v1
         with:
