@@ -1,0 +1,84 @@
+# we are using separate workflow because CI producing test binaries with CPPFLAGS=-DTESTMODE
+
+name: Spacecoin-QT CD
+
+
+on:
+  push:
+    branches:
+    - static-tspace
+    - static-tspace-dev
+    - static-tspace-testing
+
+
+jobs:
+
+  linux-build:
+    name: Linux Build
+    # using there as old release as possible with GHA worker to provide better compatibility
+    runs-on: ubuntu-16.04
+    steps:
+
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
+      - name: Shortify commit sha
+        shell: bash
+        run: echo "##[set-output name=sha_short;]$(echo ${GITHUB_SHA::7})"
+        id: shortify_commit
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies (Linux)
+        run: |
+          sudo apt-get update  # prevents repo404 errors on apt-remove below
+          sudo apt-get remove php5.6-fpm php7.0-fpm php7.1-fpm php7.2-fpm php7.3-fpm php7.3-common php7.4-fpm msodbcsql17 mysql-server*
+          sudo apt-get update
+          sudo ACCEPT_EULA=Y apt-get upgrade -y
+          sudo apt-get install automake autoconf bsdmainutils build-essential clang cmake curl git g++-multilib libboost-all-dev libcurl4-gnutls-dev libc6-dev libdb++-dev libevent-dev libncurses-dev libprotobuf-dev libqrencode-dev libsodium-dev libssl-dev libtool m4 nano ncurses-dev ntp ntpdate pkg-config protobuf-compiler python python-zmq software-properties-common unzip wget zlib1g-dev -y
+          sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools -y
+      - name: Build (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          ./zcutil/build-linux.sh -j$(nproc)
+          zip --junk-paths tspace-qt-linux src/komodod src/komodo-cli tspace-qt
+      - name: Upload tspace-qt-linux.zip
+        uses: actions/upload-artifact@v1
+        with:
+          name: tspace-qt-linux
+          path: ./tspace-qt-linux.zip
+
+
+  windows-build:
+    name: Windows Build (mingw)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies (Windows)
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo apt-get update  # prevents repo404 errors on apt-remove below
+          sudo apt-get remove php5.6-fpm php7.0-fpm php7.1-fpm php7.2-fpm php7.3-fpm php7.3-common php7.4-fpm
+          sudo apt-get update
+          sudo ACCEPT_EULA=Y apt-get upgrade -y
+          sudo apt-get install automake autoconf bsdmainutils build-essential clang cmake curl git g++-multilib libboost-all-dev libcurl4-gnutls-dev libc6-dev libdb++-dev libevent-dev libncurses-dev libprotobuf-dev libqrencode-dev libsodium-dev libssl-dev libtool mingw-w64 m4 nano ncurses-dev ntp ntpdate pkg-config protobuf-compiler python python-zmq software-properties-common unzip wget zlib1g-dev -y
+          sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools -y
+          curl https://sh.rustup.rs -sSf | sh -s -- -y
+          source $HOME/.cargo/env
+          rustup target add x86_64-pc-windows-gnu
+          sudo update-alternatives --set x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-posix
+          sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
+      - name: Build (Windows)
+        run: |
+          ./zcutil/build-win.sh -j$(nproc)
+          zip --junk-paths tspace-qt-win src/komodod.exe src/komodo-cli.exe tspace-qt.exe
+      - name: Upload tspace-qt-win.zip
+        uses: actions/upload-artifact@v1
+        with:
+          name: tspace-qt-win
+          path: ./tspace-qt-win.zip
