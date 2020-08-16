@@ -97,7 +97,7 @@ PREFIX="$(pwd)/depends/$BUILD/"
 HOST="$HOST" BUILD="$BUILD" "$MAKE" "$@" -C ./depends/ V=1
 ./autogen.sh
 
-#CONFIG_SITE="$PWD/depends/$HOST/share/config.site" 
+#CONFIG_SITE="$PWD/depends/$HOST/share/config.site"
 #--disable-shared --with-pic
 
 #./configure --prefix="${PREFIX}" --disable-bip70 --with-gui=qt5 --enable-tests=no --enable-wallet=yes "$HARDENING_ARG" "$LCOV_ARG" "$TEST_ARG" "$MINING_ARG" "$PROTON_ARG" $CONFIGURE_FLAGS CXXFLAGS='-g0 -O2'
@@ -112,3 +112,5 @@ HOST="$HOST" BUILD="$BUILD" "$MAKE" "$@" -C ./depends/ V=1
 #cd $WD
 
 "$MAKE" "$@" V=1
+
+cp src/qt/komodo-qt ./tspace-qt
