@@ -46,9 +46,8 @@ brew install binutils
 brew install protobuf
 brew install coreutils
 brew install wget
-# Clone the Komodo repo
+
 git clone https://github.com/SpaceWorksCo/SpaceOcean --branch static-tspace --single-branch
-# Change master branch to other branch you wish to compile
 cd SpaceOcean
 ./zcutil/fetch-params.sh
 # -j8 = using 8 threads for the compilation - replace 8 with number of threads you want to use
