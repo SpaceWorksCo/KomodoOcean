@@ -113,4 +113,4 @@ HOST="$HOST" BUILD="$BUILD" "$MAKE" "$@" -C ./depends/ V=1
 
 "$MAKE" "$@" V=1
 
-cp src/qt/komodo-qt ./tspace-qt
+cp src/qt/komodo-qt ./spacecoin-qt

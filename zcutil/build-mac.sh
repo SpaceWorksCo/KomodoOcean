@@ -69,4 +69,4 @@ CXXFLAGS='-arch x86_64 -I/usr/local/Cellar/gcc@6/6.5.0_2/include/c++/6.5.0 '"-I$
 
 make "$@" V=1 NO_GTEST=1 STATIC=1
 
-cp src/qt/komodo-qt tspace-qt
+cp src/qt/komodo-qt spacecoin-qt

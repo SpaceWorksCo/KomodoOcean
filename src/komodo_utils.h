@@ -1753,19 +1753,20 @@ void komodo_args(char *argv0)
         StartShutdown();
     }
 
-		// tSPACE customizations (start tSPACE by default)
+		// Spacecoin (SPACE) parameters (start SPACE by default)
 
-	SoftSetArg("-ac_name", std::string("tSPACE"));
+	SoftSetArg("-ac_name", std::string("SPACE"));
+	SoftSetArg("-ac_supply", std::string("0"));
+	SoftSetArg("-ac_eras", std::string("6"));
+	SoftSetArg("-ac_reward", std::string("3600000000,2700000000,1800000000,900000000,600000000,300000000"));
+	SoftSetArg("-ac_end", std::string("939393,3757572,12212109,325343422,638474735,951606048"));
+	SoftSetArg("-ac_blocktime", std::string("30"));
 	SoftSetArg("-ac_staked", std::string("50"));
-	SoftSetArg("-ac_reward", std::string("300000000"));
-	SoftSetArg("-ac_halving", std::string("313131313"));
-	SoftSetArg("-ac_decay", std::string("66666667"));
-	SoftSetArg("-ac_end", std::string("939393939"));
-	SoftSetArg("-ac_blocktime", std::string("120"));
+	SoftSetArg("-ac_cbmaturity", std::string("1"));
 	SoftSetArg("-ac_cc", std::string("939"));
-	SoftSetArg("-ac_supply", std::string("393939"));
-	vector<string> tSPACEnodes = { "165.227.35.158", "167.172.39.135" };
-  mapMultiArgs["-addnode"] = tSPACEnodes;
+	SoftSetArg("-ac_sapling", std::string("1"));
+	vector<string> SPACEnodes = { "165.227.35.158", "167.172.39.135" };
+  mapMultiArgs["-addnode"] = SPACEnodes;
 
 	name = GetArg("-ac_name","");
     if ( argv0 != 0 )

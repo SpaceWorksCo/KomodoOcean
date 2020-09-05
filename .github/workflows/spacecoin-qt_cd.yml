@@ -1,4 +1,3 @@
-# we are using separate workflow because CI producing test binaries with CPPFLAGS=-DTESTMODE
 
 name: Spacecoin-QT CD
 
@@ -6,9 +5,8 @@ name: Spacecoin-QT CD
 on:
   push:
     branches:
-    - static-tspace
-    - static-tspace-dev
-    - static-tspace-testing
+    - static-spacecoin
+    - static-spacecoin-dev
 
 
 jobs:
@@ -44,12 +42,12 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           ./zcutil/build-linux.sh -j$(nproc)
-          zip --junk-paths tspace-qt-linux src/komodod src/komodo-cli tspace-qt
-      - name: Upload tspace-qt-linux.zip
+          zip --junk-paths spacecoin-qt-linux src/komodod src/komodo-cli spacecoin-qt
+      - name: Upload spacecoin-qt-linux.zip
         uses: actions/upload-artifact@v1
         with:
-          name: tspace-qt-linux
-          path: ./tspace-qt-linux.zip
+          name: spacecoin-qt-linux
+          path: ./spacecoin-qt-linux.zip
 
 
   windows-build:
@@ -76,9 +74,9 @@ jobs:
       - name: Build (Windows)
         run: |
           ./zcutil/build-win.sh -j$(nproc)
-          zip --junk-paths tspace-qt-win src/komodod.exe src/komodo-cli.exe tspace-qt.exe
+          zip --junk-paths spacecoin-qt-win src/komodod.exe src/komodo-cli.exe spacecoin-qt.exe
       - name: Upload tspace-qt-win.zip
         uses: actions/upload-artifact@v1
         with:
-          name: tspace-qt-win
-          path: ./tspace-qt-win.zip
+          name: spacecoin-qt-win
+          path: ./spacecoin-qt-win.zip

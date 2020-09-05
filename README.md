@@ -20,7 +20,7 @@ sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoco
 ```
 
 ```shell
-git clone https://github.com/SpaceWorksCo/SpaceOcean --branch static-tspace --single-branch
+git clone https://github.com/SpaceWorksCo/SpaceOcean --branch static-spacecoin --single-branch
 cd SpaceOcean
 ./zcutil/fetch-params.sh
 # -j8 = using 8 threads for the compilation - replace 8 with number of threads you want to use
@@ -47,7 +47,7 @@ brew install protobuf
 brew install coreutils
 brew install wget
 
-git clone https://github.com/SpaceWorksCo/SpaceOcean --branch static-tspace --single-branch
+git clone https://github.com/SpaceWorksCo/SpaceOcean --branch static-spacecoin --single-branch
 cd SpaceOcean
 ./zcutil/fetch-params.sh
 # -j8 = using 8 threads for the compilation - replace 8 with number of threads you want to use
@@ -68,7 +68,7 @@ sudo update-alternatives --config x86_64-w64-mingw32-gcc
 sudo update-alternatives --config x86_64-w64-mingw32-g++
 # (configure to use POSIX variant)
 
-git clone https://github.com/SpaceWorksCo/SpaceOcean --branch static-tspace --single-branch
+git clone https://github.com/SpaceWorksCo/SpaceOcean --branch static-spacecoin --single-branch
 cd SpaceOcean
 ./zcutil/fetch-params.sh
 # -j8 = using 8 threads for the compilation - replace 8 with number of threads you want to use

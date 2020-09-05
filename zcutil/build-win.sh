@@ -24,4 +24,4 @@ CC="${CC}" CXX="${CXX}" make "$@" V=1
 
 cd ..
 
-cp src/qt/komodo-qt.exe ./tspace-qt.exe
+cp src/qt/komodo-qt.exe ./spacecoin-qt.exe
