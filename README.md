@@ -1,6 +1,7 @@
 # SpaceOcean (spacecoin-qt) #
 
 ![Downloads](https://img.shields.io/github/downloads/SpaceWorksCo/SpaceOcean/total)
+[![Version](https://img.shields.io/github/v/release/SpaceWorksCo/SpaceOcean?include_prereleases)](https://github.com/SpaceWorksCo/SpaceOcean/releases)
 
 Spacecoin-Qt (SpaceOcean) is a Qt native full node wallet for [Spacecoin](https://spaceworks.co/spacecoin) (SPACE).
 
@@ -8,7 +9,7 @@ It's available for three OS platforms - Windows, Linux, MacOS.
 
 Download from [Releases](https://github.com/SpaceWorksCo/SpaceOcean/releases) or follow the steps below to build from source.
 
-Visit [#wallet-ocean-qt](https://discord.com/invite/ddq5knz) channel in SpaceWorks Discord for more information.
+Visit [#wallet-spacecoin-qt](https://spaceworks.co/discord) channel in SpaceWorks Discord for more information.
 
 ## How to build?
 
