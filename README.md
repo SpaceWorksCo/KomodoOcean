@@ -9,7 +9,8 @@ It's available for three OS platforms - Windows, Linux, MacOS.
 
 Download from [Releases](https://github.com/SpaceWorksCo/SpaceOcean/releases) or follow the steps below to build from source.
 
-Visit [#wallet-spacecoin-qt](https://spaceworks.co/discord) channel in SpaceWorks Discord for more information.
+Visit [#wallet-qt](https://spaceworks.co/discord) channel in SpaceWorks Discord for more information.
+
 
 ## How to build?
 
@@ -82,6 +83,6 @@ cd SpaceOcean
 
 
 ## Developers of Qt wallet ##
-
+- Spacecoin Fork: **SpaceWorks**
 - Main developer: **Ocean**
 - IT Expert / Sysengineer: **Decker**
