@@ -1756,15 +1756,10 @@ void komodo_args(char *argv0)
 		// tSPACE customizations (start tSPACE by default)
 
 	SoftSetArg("-ac_name", std::string("tSPACE"));
-	SoftSetArg("-ac_staked", std::string("50"));
-	SoftSetArg("-ac_reward", std::string("300000000"));
-	SoftSetArg("-ac_halving", std::string("313131313"));
-	SoftSetArg("-ac_decay", std::string("66666667"));
-	SoftSetArg("-ac_end", std::string("939393939"));
-	SoftSetArg("-ac_blocktime", std::string("120"));
+	SoftSetArg("-ac_supply", std::string("3939393"));
 	SoftSetArg("-ac_cc", std::string("939"));
-	SoftSetArg("-ac_supply", std::string("393939"));
-	vector<string> tSPACEnodes = { "165.227.35.158", "167.172.39.135" };
+	SoftSetArg("-ac_sapling", std::string("1"));
+	vector<string> tSPACEnodes = { "165.227.35.158", "165.22.64.156", "188.166.221.247" };
   mapMultiArgs["-addnode"] = tSPACEnodes;
 
 	name = GetArg("-ac_name","");

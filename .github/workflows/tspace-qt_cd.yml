@@ -1,6 +1,6 @@
 # we are using separate workflow because CI producing test binaries with CPPFLAGS=-DTESTMODE
 
-name: Spacecoin-QT CD
+name: tSPACE-QT CD
 
 
 on:
