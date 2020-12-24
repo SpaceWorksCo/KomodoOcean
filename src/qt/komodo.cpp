@@ -359,7 +359,7 @@ void KomodoCore::shutdown()
                 if ( KOMODO_NSPV_FULLNODE )
                     komodo_passport_iteration();
                 MilliSleep(1000);
-            } 
+            }
             else
             {
                 //komodo_interestsum();
@@ -565,7 +565,7 @@ void KomodoApplication::initializeResult(bool success)
 
             window->addWallet(KomodoOceanGUI::DEFAULT_WALLET, walletModel);
             window->setCurrentWallet(KomodoOceanGUI::DEFAULT_WALLET);
-            
+
             #ifdef ENABLE_BIP70
             connect(walletModel, SIGNAL(coinsSent(CWallet*,SendCoinsRecipient,QByteArray)),
                              paymentServer, SLOT(fetchPaymentACK(CWallet*,const SendCoinsRecipient&,QByteArray)));
@@ -609,7 +609,7 @@ void KomodoApplication::shutdownResult()
 
 void KomodoApplication::handleRunawayException(const QString &message)
 {
-    QMessageBox::critical(0, "Runaway exception", KomodoOceanGUI::tr("A fatal error occurred. Komodo can no longer continue safely and will quit.") + QString("\n\n") + message);
+    QMessageBox::critical(0, "Runaway exception", KomodoOceanGUI::tr("A fatal error occurred. Spacecoin can no longer continue safely and will quit.") + QString("\n\n") + message);
     ::exit(EXIT_FAILURE);
 }
 

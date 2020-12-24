@@ -53,7 +53,7 @@
 #endif
 
 const int KOMODO_IPC_CONNECT_TIMEOUT = 1000; // milliseconds
-const QString KOMODO_IPC_PREFIX("komodo:");
+const QString KOMODO_IPC_PREFIX("spacecoin:");
 
 #ifdef ENABLE_BIP70
 // BIP70 payment protocol messages
@@ -341,7 +341,7 @@ PaymentServer::PaymentServer(QObject* parent, bool startLocalServer) :
         if (!uriServer->listen(name)) {
             // constructor is called early in init, so don't use "Q_EMIT message()" here
             QMessageBox::critical(0, tr("Payment request error"),
-                tr("Cannot start komodo: click-to-pay handler"));
+                tr("Cannot start spacecoin: click-to-pay handler"));
         }
         else {
             connect(uriServer, SIGNAL(newConnection()), this, SLOT(handleURIConnection()));
@@ -479,7 +479,7 @@ void PaymentServer::handleURIOrFile(const QString& s)
             }
             else
                 Q_EMIT message(tr("URI handling"),
-                    tr("URI cannot be parsed! This can be caused by an invalid Komodo address or malformed URI parameters."),
+                    tr("URI cannot be parsed! This can be caused by an invalid Spacecoin address or malformed URI parameters."),
                     CClientUIInterface::ICON_WARNING);
 
             return;
