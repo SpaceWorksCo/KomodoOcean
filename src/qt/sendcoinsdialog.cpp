@@ -811,7 +811,7 @@ void SendCoinsDialog::coinControlChangeEdited(const QString& text)
         }
         else if (!IsValidDestination(dest)) // Invalid address
         {
-            ui->labelCoinControlChangeLabel->setText(tr("Warning: Invalid Komodo address"));
+            ui->labelCoinControlChangeLabel->setText(tr("Warning: Invalid Spacecoin address"));
         }
         else // Valid address
         {
