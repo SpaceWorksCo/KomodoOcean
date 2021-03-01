@@ -41,7 +41,7 @@ jobs:
       - name: Build (Linux)
         if: runner.os == 'Linux'
         run: |
-          ./zcutil/build-linux.sh -j$(nproc)
+          ./zcutil/build.sh -j$(nproc)
           zip --junk-paths spacecoin-qt-linux src/komodod src/komodo-cli spacecoin-qt
       - name: Upload spacecoin-qt-linux.zip
         uses: actions/upload-artifact@v1
