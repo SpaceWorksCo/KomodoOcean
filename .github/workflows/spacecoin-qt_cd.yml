@@ -75,7 +75,7 @@ jobs:
         run: |
           ./zcutil/build-win.sh -j$(nproc)
           zip --junk-paths spacecoin-qt-win src/komodod.exe src/komodo-cli.exe spacecoin-qt.exe
-      - name: Upload tspace-qt-win.zip
+      - name: Upload space-qt-win.zip
         uses: actions/upload-artifact@v1
         with:
           name: spacecoin-qt-win
