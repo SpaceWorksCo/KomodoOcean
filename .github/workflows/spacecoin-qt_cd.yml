@@ -80,3 +80,34 @@ jobs:
         with:
           name: spacecoin-qt-win
           path: ./spacecoin-qt-win.zip
+
+  osx-build:
+    name: OSX Build
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies (macOS)
+        run: |
+          /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+          xcode-select --install
+          brew unlink bazel
+          brew update
+          brew upgrade
+          brew tap discoteq/discoteq; brew install flock
+          brew install autoconf autogen automake
+          brew install binutils
+          brew install protobuf
+          brew install coreutils
+          brew install wget
+          brew install python3
+          brew install berkeley-db4 libtool boost miniupnpc openssl pkg-config python qt libevent qrencode
+          brew install librsvg
+      - name: Build (macOS)
+        run: |
+          ./zcutil/build-mac.sh -j8
+          zip --junk-paths spacecoin-qt-mac src/komodod src/komodo-cli spacecoin-qt
+      - name: Upload spacecoin-qt-mac.zip
+        uses: actions/upload-artifact@v1
+        with:
+          name: spacecoin-qt-mac
+          path: ./spacecoin-qt-mac.zip
