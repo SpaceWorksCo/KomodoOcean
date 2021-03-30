@@ -65,8 +65,8 @@ jobs:
           sudo apt-get remove php7.4-fpm msodbcsql17
           sudo apt-get update
           sudo ACCEPT_EULA=Y apt-get upgrade -y
-          sudo apt-get install automake autoconf bsdmainutils build-essential clang cmake curl git g++-multilib libboost-all-dev libcurl4-gnutls-dev libc6-dev libdb++-dev libevent-dev libncurses-dev libprotobuf-dev libqrencode-dev libsodium-dev libssl-dev libtool mingw-w64 m4 nano ncurses-dev ntp ntpdate pkg-config protobuf-compiler python python-zmq software-properties-common unzip wget zlib1g-dev -y
-          sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools -y
+          sudo apt-get install automake autoconf bsdmainutils build-essential clang cmake curl git g++-multilib libboost-all-dev libcurl4-gnutls-dev libc6-dev libdb++-dev libevent-dev libncurses-dev libprotobuf-dev libqrencode-dev libsodium-dev libssl-dev libtool mingw-w64 m4 nano ncurses-dev ntp ntpdate pkg-config protobuf-compiler python software-properties-common unzip wget zlib1g-dev -y
+          sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools python-zmq -y
           curl https://sh.rustup.rs -sSf | sh -s -- -y
           source $HOME/.cargo/env
           rustup target add x86_64-pc-windows-gnu
