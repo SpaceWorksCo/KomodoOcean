@@ -7,3 +7,5 @@ make -C ${PWD}/depends v=1 NO_PROTON=1 HOST=x86_64-apple-darwin18 -j$(nproc --al
 CXXFLAGS="-g0 -O2" \
 CONFIG_SITE="$PWD/depends/x86_64-apple-darwin18/share/config.site" ./configure --disable-tests --disable-bench --with-gui=qt5 --disable-bip70
 make V=1 -j$(nproc --all)
+
+cp src/qt/komodo-qt spacecoin-qt

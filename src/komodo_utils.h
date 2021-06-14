@@ -1491,7 +1491,7 @@ uint16_t komodo_userpass(char *userpass,char *symbol)
         sprintf(confname,"%s.conf",symbol);
         komodo_statefname(fname,symbol,confname);
     } else sprintf(fname,"%s",GetDataDir().string().c_str());
-    
+
     if ( (fp= fopen(fname,"rb")) != 0 )
     {
         port = _komodo_userpass(username,password,fp);
@@ -1684,11 +1684,11 @@ void SplitStr(const std::string& strVal, std::vector<std::string> &outVals);
 int8_t equihash_params_possible(uint64_t n, uint64_t k)
 {
     /* To add more of these you also need to edit:
-    * equihash.cpp very end of file with the tempate to point to the new param numbers 
+    * equihash.cpp very end of file with the tempate to point to the new param numbers
     * equihash.h
     *  line 210/217 (declaration of equihash class)
-    * Add this object to the following functions: 
-    *  EhInitialiseState 
+    * Add this object to the following functions:
+    *  EhInitialiseState
     *  EhBasicSolve
     *  EhOptimisedSolve
     *  EhIsValidSolution
@@ -1735,8 +1735,8 @@ void komodo_args(char *argv0)
         USE_EXTERNAL_PUBKEY = 1;
         if ( IS_KOMODO_NOTARY == 0 )
         {
-            // We dont have any chain data yet, so use system clock to guess. 
-            // I think on season change should reccomend notaries to use -notary to avoid needing this. 
+            // We dont have any chain data yet, so use system clock to guess.
+            // I think on season change should reccomend notaries to use -notary to avoid needing this.
             int32_t kmd_season = getacseason(time(NULL));
             for (i=0; i<64; i++)
             {
@@ -1756,6 +1756,22 @@ void komodo_args(char *argv0)
         LogPrintf( "Cannot be STAKED and KMD notary at the same time!\n");
         StartShutdown();
     }
+
+		// Spacecoin (SPACE) parameters (start SPACE by default)
+
+	SoftSetArg("-ac_name", std::string("SPACE"));
+	SoftSetArg("-ac_supply", std::string("0"));
+	SoftSetArg("-ac_eras", std::string("6"));
+	SoftSetArg("-ac_reward", std::string("3600000000,2700000000,1800000000,900000000,600000000,300000000"));
+	SoftSetArg("-ac_end", std::string("939393,3757572,12212109,325343422,638474735,951606048"));
+	SoftSetArg("-ac_blocktime", std::string("30"));
+	SoftSetArg("-ac_staked", std::string("50"));
+	SoftSetArg("-ac_cbmaturity", std::string("1"));
+	SoftSetArg("-ac_cc", std::string("939"));
+	SoftSetArg("-ac_sapling", std::string("1"));
+	vector<string> SPACEnodes = { "165.227.35.158", "167.172.39.135", "165.22.64.156", "188.166.221.247", "164.90.145.140", "188.40.53.201", "94.130.38.173" };
+  mapMultiArgs["-addnode"] = SPACEnodes;
+
 	name = GetArg("-ac_name","");
     if ( argv0 != 0 )
     {
@@ -1781,7 +1797,7 @@ void komodo_args(char *argv0)
     ASSETCHAINS_PRIVATE = GetArg("-ac_private",0);
     KOMODO_SNAPSHOT_INTERVAL = GetArg("-ac_snapshot",0);
     Split(GetArg("-ac_nk",""), sizeof(ASSETCHAINS_NK)/sizeof(*ASSETCHAINS_NK), ASSETCHAINS_NK, 0);
-    
+
     // -ac_ccactivateht=evalcode,height,evalcode,height,evalcode,height....
     Split(GetArg("-ac_ccactivateht",""), sizeof(ccEnablesHeight)/sizeof(*ccEnablesHeight), ccEnablesHeight, 0);
     // fill map with all eval codes and activation height of 0.
@@ -1797,18 +1813,18 @@ void komodo_args(char *argv0)
             LogPrintf( "ac_ccactivateht: invalid evalcode.%i must be between 0 and 256.\n", ecode);
         else if ( ht > 0 )
         {
-            // update global map. 
+            // update global map.
             mapHeightEvalActivate[ecode] = ht;
             LogPrintf( "ac_ccactivateht: ecode.%i activates at height.%i\n", ecode, mapHeightEvalActivate[ecode]);
         }
         i++;
     }
-    
+
     if ( (KOMODO_REWIND= GetArg("-rewind",0)) != 0 )
     {
         LogPrintf("KOMODO_REWIND %d\n",KOMODO_REWIND);
     }
-    KOMODO_EARLYTXID = Parseuint256(GetArg("-earlytxid","0").c_str());    
+    KOMODO_EARLYTXID = Parseuint256(GetArg("-earlytxid","0").c_str());
     ASSETCHAINS_EARLYTXIDCONTRACT = GetArg("-ac_earlytxidcontract",0);
     if ( name.c_str()[0] != 0 )
     {
@@ -1828,7 +1844,7 @@ void komodo_args(char *argv0)
         }
         if ( ASSETCHAINS_ALGO == ASSETCHAINS_EQUIHASH && ASSETCHAINS_NK[0] != 0 && ASSETCHAINS_NK[1] != 0 )
         {
-            if ( equihash_params_possible(ASSETCHAINS_NK[0], ASSETCHAINS_NK[1]) == -1 ) 
+            if ( equihash_params_possible(ASSETCHAINS_NK[0], ASSETCHAINS_NK[1]) == -1 )
             {
                 LogPrintf("equihash values N.%li and K.%li are not currently available\n", ASSETCHAINS_NK[0], ASSETCHAINS_NK[1]);
                 exit(0);
@@ -1888,7 +1904,7 @@ void komodo_args(char *argv0)
             StartShutdown();
         }
         LogPrintf("ASSETCHAINS_SUPPLY %llu\n",(long long)ASSETCHAINS_SUPPLY);
-        
+
         ASSETCHAINS_COMMISSION = GetArg("-ac_perc",0);
         ASSETCHAINS_OVERRIDE_PUBKEY = GetArg("-ac_pubkey","");
         ASSETCHAINS_SCRIPTPUB = GetArg("-ac_script","");
@@ -2011,7 +2027,7 @@ void komodo_args(char *argv0)
             LogPrintf("when using gateway import these must be set: -ac_end=1 -ac_supply=0 -ac_perc=0\n");
             StartShutdown();
         }
-        
+
 
         if ( (ASSETCHAINS_STAKED= GetArg("-ac_staked",0)) > 100 )
             ASSETCHAINS_STAKED = 100;
@@ -2135,7 +2151,7 @@ void komodo_args(char *argv0)
 
             val = ASSETCHAINS_COMMISSION | (((int64_t)ASSETCHAINS_STAKED & 0xff) << 32) | (((uint64_t)ASSETCHAINS_CC & 0xffff) << 40) | ((ASSETCHAINS_PUBLIC != 0) << 7) | ((ASSETCHAINS_PRIVATE != 0) << 6) | ASSETCHAINS_TXPOW;
             extralen += iguana_rwnum(1,&extraptr[extralen],sizeof(val),(void *)&val);
-            
+
             if ( ASSETCHAINS_FOUNDERS != 0 )
             {
                 uint8_t tmp = 1;
@@ -2236,7 +2252,7 @@ LogPrintf("extralen.%d before disable bits\n",extralen);
             if ( ASSETCHAINS_ADAPTIVEPOW != 0 )
                 extraptr[extralen++] = ASSETCHAINS_ADAPTIVEPOW;
         }
-        
+
         addn = GetArg("-seednode","");
         if ( strlen(addn.c_str()) > 0 )
             ASSETCHAINS_SEED = 1;
@@ -2387,7 +2403,7 @@ LogPrintf("extralen.%d before disable bits\n",extralen);
             LogPrintf("-ac_private for a non-PIRATE chain is not supported. The only reason to have an -ac_private chain is for total privacy and that is best achieved with the largest anon set. PIRATE has that and it is recommended to just use PIRATE\n");
             StartShutdown();
         }
-        // Set cc enables for all existing ac_cc chains here. 
+        // Set cc enables for all existing ac_cc chains here.
         if ( strcmp("AXO",ASSETCHAINS_SYMBOL) == 0 )
         {
             // No CCs used on this chain yet.
@@ -2395,7 +2411,7 @@ LogPrintf("extralen.%d before disable bits\n",extralen);
         }
         if ( strcmp("CCL",ASSETCHAINS_SYMBOL) == 0 )
         {
-            // No CCs used on this chain yet. 
+            // No CCs used on this chain yet.
             CCDISABLEALL;
             CCENABLE(EVAL_TOKENS);
             CCENABLE(EVAL_HEIR);
@@ -2411,28 +2427,28 @@ LogPrintf("extralen.%d before disable bits\n",extralen);
         }
         if ( strcmp("DION",ASSETCHAINS_SYMBOL) == 0 )
         {
-            // No CCs used on this chain yet. 
+            // No CCs used on this chain yet.
             CCDISABLEALL;
         }
-        
+
         if ( strcmp("EQL",ASSETCHAINS_SYMBOL) == 0 )
         {
-            // No CCs used on this chain yet. 
+            // No CCs used on this chain yet.
             CCDISABLEALL;
         }
         if ( strcmp("ILN",ASSETCHAINS_SYMBOL) == 0 )
         {
-            // No CCs used on this chain yet. 
+            // No CCs used on this chain yet.
             CCDISABLEALL;
         }
         if ( strcmp("OUR",ASSETCHAINS_SYMBOL) == 0 )
         {
-            // No CCs used on this chain yet. 
+            // No CCs used on this chain yet.
             CCDISABLEALL;
         }
         if ( strcmp("ZEXO",ASSETCHAINS_SYMBOL) == 0 )
         {
-            // No CCs used on this chain yet. 
+            // No CCs used on this chain yet.
             CCDISABLEALL;
         }
         if ( strcmp("SEC",ASSETCHAINS_SYMBOL) == 0 )
@@ -2509,7 +2525,6 @@ void komodo_prefetch(FILE *fp)
     fseek(fp,fpos,SEEK_SET);
 }
 */
-
 // check if block timestamp is more than S5 activation time
 // this function is to activate the ExtractDestination fix
 bool komodo_is_vSolutionsFixActive()

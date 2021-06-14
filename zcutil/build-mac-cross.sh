@@ -11,3 +11,5 @@ CXXFLAGS="-g0 -O2" \
 CONFIG_SITE="$PWD/depends/x86_64-apple-darwin18/share/config.site" ./configure --disable-tests --disable-bench --with-gui=qt5 --disable-bip70
 # make app
 make V=1 -j$(nproc --all)
+
+cp src/qt/komodo-qt spacecoin-qt
