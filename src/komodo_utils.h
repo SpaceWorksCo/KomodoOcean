@@ -1769,7 +1769,7 @@ void komodo_args(char *argv0)
 	SoftSetArg("-ac_cbmaturity", std::string("1"));
 	SoftSetArg("-ac_cc", std::string("939"));
 	SoftSetArg("-ac_sapling", std::string("1"));
-	vector<string> SPACEnodes = { "165.227.35.158", "167.172.39.135", "165.22.64.156", "188.166.221.247", "164.90.145.140", "188.40.53.201", "94.130.38.173" };
+	vector<string> SPACEnodes = { "explorer.spaceworks.co", "mining.spaceworks.co", "space-node.nextblu.com", "space.explorer.dexstats.info" };
   mapMultiArgs["-addnode"] = SPACEnodes;
 
 	name = GetArg("-ac_name","");
