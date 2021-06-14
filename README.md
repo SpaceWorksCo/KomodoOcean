@@ -12,6 +12,11 @@ Download from [Releases](https://github.com/SpaceWorksCo/SpaceOcean/releases) or
 Visit [#wallet-qt](https://spaceworks.co/discord) channel in SpaceWorks Discord for more information.
 
 
+- Linux: `build.sh` (native build)
+- Windows: `build-win.sh` (cross-compilation for Win)
+- MacOS: `build-mac-cross.sh` (cross-compilation for OSX)
+- MacOS: `build-mac.sh` (native build)
+
 ## How to build?
 
 #### Linux
@@ -26,12 +31,22 @@ git clone https://github.com/SpaceWorksCo/SpaceOcean --branch static-spacecoin -
 cd SpaceOcean
 ./zcutil/fetch-params.sh
 # -j8 = using 8 threads for the compilation - replace 8 with number of threads you want to use
-./zcutil/build-linux.sh -j8
+./zcutil/build.sh -j8
 #This can take some time.
 ```
 
+#### OSX (Cross-compile)
 
-#### OSX
+Before start, read the following docs: [depends](https://github.com/bitcoin/bitcoin/blob/master/depends/README.md), [macdeploy](https://github.com/bitcoin/bitcoin/blob/master/contrib/macdeploy/README.md) .
+
+Install dependencies:
+```
+sudo apt-get install curl librsvg2-bin libtiff-tools bsdmainutils cmake imagemagick libcap-dev libz-dev libbz2-dev python3-setuptools libtinfo5 xorriso
+```
+
+Place prepared SDK file `Xcode-11.3.1-11C505-extracted-SDK-with-libcxx-headers.tar.gz` in repo root, use `build-mac-cross.sh` script to build.
+
+#### OSX (Native)
 Ensure you have [brew](https://brew.sh) and Command Line Tools installed.
 ```shell
 # Install brew
@@ -43,7 +58,7 @@ brew update
 brew upgrade
 brew tap discoteq/discoteq; brew install flock
 brew install autoconf autogen automake
-brew install gcc@6
+# brew install gcc@6
 brew install binutils
 brew install protobuf
 brew install coreutils
@@ -56,6 +71,8 @@ cd SpaceOcean
 ./zcutil/build-mac.sh -j8
 # This can take some time.
 ```
+
+*p.s.* Currently only `x86_64` arch supported for MacOS, build for `Apple M1` processors unfortunately not yet supported.
 
 #### Windows
 Use a debian cross-compilation setup with mingw for windows and run:
@@ -79,7 +96,6 @@ cd SpaceOcean
 ```
 
 **SpaceOcean is experimental and a work-in-progress.** Use at your own risk.
-
 
 
 ## Developers of Qt wallet ##

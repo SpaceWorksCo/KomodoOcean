@@ -41,7 +41,7 @@ jobs:
       - name: Build (Linux)
         if: runner.os == 'Linux'
         run: |
-          ./zcutil/build-linux.sh -j$(nproc)
+          ./zcutil/build.sh -j$(nproc)
           zip --junk-paths spacecoin-qt-linux src/komodod src/komodo-cli spacecoin-qt
       - name: Upload spacecoin-qt-linux.zip
         uses: actions/upload-artifact@v1
@@ -61,7 +61,7 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo apt-get update  # prevents repo404 errors on apt-remove below
-          sudo apt-get remove php5.6-fpm php7.0-fpm php7.1-fpm php7.2-fpm php7.3-fpm php7.3-common php7.4-fpm
+          sudo apt-get remove php5.6-fpm php7.0-fpm php7.1-fpm php7.2-fpm php7.3-fpm php7.3-common php7.4-fpm msodbcsql17
           sudo apt-get update
           sudo ACCEPT_EULA=Y apt-get upgrade -y
           sudo apt-get install automake autoconf bsdmainutils build-essential clang cmake curl git g++-multilib libboost-all-dev libcurl4-gnutls-dev libc6-dev libdb++-dev libevent-dev libncurses-dev libprotobuf-dev libqrencode-dev libsodium-dev libssl-dev libtool mingw-w64 m4 nano ncurses-dev ntp ntpdate pkg-config protobuf-compiler python python-zmq software-properties-common unzip wget zlib1g-dev -y
@@ -75,8 +75,37 @@ jobs:
         run: |
           ./zcutil/build-win.sh -j$(nproc)
           zip --junk-paths spacecoin-qt-win src/komodod.exe src/komodo-cli.exe spacecoin-qt.exe
-      - name: Upload tspace-qt-win.zip
+      - name: Upload space-qt-win.zip
         uses: actions/upload-artifact@v1
         with:
           name: spacecoin-qt-win
           path: ./spacecoin-qt-win.zip
+
+  osx-build:
+    name: OSX Build
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies (macOS)
+        run: |
+          /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+          brew update
+          brew upgrade
+          brew tap discoteq/discoteq; brew install flock
+          brew install autoconf autogen automake
+          brew install binutils
+          brew install protobuf
+          brew install coreutils
+          brew install wget
+          brew install python3
+          brew install berkeley-db4 libtool boost miniupnpc openssl pkg-config python qt libevent qrencode
+          brew install librsvg
+      - name: Build (macOS)
+        run: |
+          ./zcutil/build-mac.sh -j8
+          zip --junk-paths spacecoin-qt-mac src/komodod src/komodo-cli spacecoin-qt
+      - name: Upload spacecoin-qt-mac.zip
+        uses: actions/upload-artifact@v1
+        with:
+          name: spacecoin-qt-mac
+          path: ./spacecoin-qt-mac.zip
